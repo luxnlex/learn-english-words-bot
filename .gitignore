@@ -102,3 +102,6 @@ ENV/
 
 # json user dict
 *.json
+
+# bot settings file
+settings.py
