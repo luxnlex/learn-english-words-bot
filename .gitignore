@@ -103,8 +103,8 @@ ENV/
 # json user dict
 *.json
 
-# settings folder
-/cfg
-
 # PyCharm
 .idea/
+
+# test folder
+/test
