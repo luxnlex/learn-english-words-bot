@@ -6,9 +6,9 @@ import telebot # pip3 install PyTelegramBotAPI==2.2.3
 import random
 import json
 import os,sys
-import settings
+import cfg.settings
 
-bot = telebot.TeleBot(settings.token)
+bot = telebot.TeleBot(cfg.settings.token)
 
 script_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
 word_dict = {}
@@ -20,7 +20,7 @@ class Dict:
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    if message.chat.id in settings.admin:
+    if message.chat.id in cfg.settings.admin:
         bot.reply_to(message, '''Добро пожаловать в бот для изучения английского языка!
 Список доступных команд: 
 /add - добавить слово и перевод в словарь
@@ -28,7 +28,7 @@ def send_welcome(message):
 /getChatId - получить ID чата
 ''')
     else:
-        bot.reply_to(message, '''Свяжитесь с администратором (''' + settings.admin_mail + ''') для добавления в группу администраторов проекта!
+        bot.reply_to(message, '''Свяжитесь с администратором (''' + cfg.settings.admin_mail + ''') для добавления в группу администраторов проекта!
 Выполните команду /getChatId и сообщите результат администратору!''')
 
 @bot.message_handler(commands=['getChatId','getchatid'])
@@ -37,7 +37,7 @@ def get_chat_id(message):
 
 @bot.message_handler(commands=['add'])
 def get_add(message):
-    if message.chat.id in settings.admin:
+    if message.chat.id in cfg.settings.admin:
         try:
             msg = bot.reply_to(message, "English word?")
             bot.register_next_step_handler(msg, get_word)
@@ -86,7 +86,7 @@ def get_translate(message):
         
 @bot.message_handler(commands=['train'])
 def get_train(message):        
-    if message.chat.id in settings.admin:
+    if message.chat.id in cfg.settings.admin:
         user_db_file = script_dir + '/' + str(message.chat.id) + '.json'
         if os.path.exists(user_db_file):
             try:
@@ -107,7 +107,7 @@ def get_train(message):
         bot.reply_to(message, 'Вы не являетесь администратором!')
         
 def check_word(message):
-    if message.chat.id in settings.admin:
+    if message.chat.id in cfg.settings.admin:
         try:
             user_db_file = script_dir + '/' + str(message.chat.id) + '.json'
             chat_id = message.chat.id
