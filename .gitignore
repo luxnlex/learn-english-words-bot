@@ -103,7 +103,7 @@ ENV/
 # json user dict
 *.json
 
-# bot settings files
+# settings folder
 /cfg
 
 # PyCharm
