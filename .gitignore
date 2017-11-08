@@ -105,3 +105,6 @@ ENV/
 
 # bot settings file
 settings.py
+
+# PyCharm
+.idea/
